@@ -7,7 +7,7 @@ export type signupInputType = loginInputType & {
   passwordConfirm: string;
 };
 
-export type signupReponseType = {
+export type authResponseType = {
   message: string;
   token: string;
 };

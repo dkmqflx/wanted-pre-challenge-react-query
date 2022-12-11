@@ -1,6 +1,10 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useLogin } from '@quries/auth';
+import TokenService from '@service/token.service';
 import { loginInputType } from '@type/auth.types';
+import Auth from '@components/Auth';
 import Input from '@components/common/Input';
 import Button from '@components/common/Button';
 import { emailRegex } from '@constants/auth';
@@ -12,7 +16,23 @@ const login = () => {
     formState: { errors, isValid },
   } = useForm<loginInputType>({ mode: 'onChange' });
 
-  const onSubmit: SubmitHandler<loginInputType> = (data) => console.log(data);
+  const router = useRouter();
+  const { mutate } = useLogin();
+
+  const onSubmit: SubmitHandler<loginInputType> = (data) => {
+    const { email, password } = data;
+    mutate(
+      { email, password },
+      {
+        onSuccess: (data) => {
+          const { message, token } = data;
+          TokenService.setToken(token);
+          alert(message);
+          router.push('/');
+        },
+      }
+    );
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -50,4 +70,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Auth(login);

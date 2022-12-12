@@ -5,8 +5,12 @@ type requestOptionType<TData = unknown, TError = unknown> = {
   onError?: (error: TError) => void;
 };
 
-type mutateOptionType<TData = unknown, TError = unknown> = {
-  onSuccess?: (data: TData) => void;
+type mutateOptionType<
+  TData = unknown,
+  TError = unknown,
+  TVariables = unknown
+> = {
+  onSuccess?: (data: TData, variables?: TVariables) => void;
   onError?: (error: TError) => void;
 };
 
@@ -24,7 +28,7 @@ export const useMutate = <
   TVariables = unknown
 >(
   mutationFn: (data: TVariables) => Promise<TData>,
-  option?: mutateOptionType<TData, TError>
+  option?: mutateOptionType<TData, TError, TVariables>
 ) => {
   return useMutation(mutationFn, { ...option });
 };

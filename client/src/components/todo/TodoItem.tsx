@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useDeleteTodo } from '@quries/todo';
 import styled from '@emotion/styled';
 
 type todoItemType = {
@@ -10,6 +11,7 @@ type todoItemType = {
 
 const TodoItem = ({ id, title, content, show }: todoItemType) => {
   const router = useRouter();
+  const { mutate: deleteMutate } = useDeleteTodo();
 
   const onClick = () => {
     if (show) {
@@ -19,12 +21,19 @@ const TodoItem = ({ id, title, content, show }: todoItemType) => {
     }
   };
 
+  const handleDelete = () => {
+    if (window.confirm('선택한 항목을 삭제하시겠습니까?')) {
+      deleteMutate(id);
+    }
+  };
+
   return (
     <Wrapper>
       <ItemWrapper id={id}>
         <span>{title}</span>
         <Settings>
           <SettingButton onClick={onClick}>상세</SettingButton>
+          <SettingButton onClick={handleDelete}>삭제</SettingButton>
         </Settings>
       </ItemWrapper>
       {show && <Content>{content}</Content>}
@@ -56,6 +65,10 @@ const SettingButton = styled.button`
   border-radius: 4px;
   padding-top: 2px;
   padding-bottom: 2px;
+
+  & + & {
+    margin-left: 4px;
+  }
 `;
 
 const Content = styled.div`

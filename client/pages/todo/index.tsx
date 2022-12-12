@@ -45,11 +45,14 @@ const Todos = () => {
     createMutate({ title, content });
   };
 
+  console.log(data);
+
   return (
     <Wrapper>
       <ItemsWrapper>
         {data?.map(({ title, content, id }) => (
           <TodoItem
+            key={id}
             id={id}
             title={title}
             content={content}

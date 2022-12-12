@@ -34,6 +34,12 @@ class Todo {
     const { data } = await this.http.post('/todos', { title, content });
     return data.data;
   }
+
+  async deleteTodo(id: string) {
+    this.setInterCepters();
+    const { data } = await this.http.delete(`/todos/${id}`);
+    return data.data;
+  }
 }
 
 export default new Todo();

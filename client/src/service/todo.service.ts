@@ -22,10 +22,17 @@ class Todo {
     });
   }
 
+  async getTodos() {
+    this.setInterCepters();
+    const { data } = await this.http.get('/todos');
+
+    return data.data;
+  }
+
   async createTodo(title: string, content: string) {
     this.setInterCepters();
     const { data } = await this.http.post('/todos', { title, content });
-    return data;
+    return data.data;
   }
 }
 

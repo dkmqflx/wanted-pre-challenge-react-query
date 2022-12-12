@@ -1,10 +1,14 @@
+import { useRouter } from 'next/router';
 import React, { useRef, useState } from 'react';
-import { useCreateTodo } from '@quries/todo';
+import { useCreateTodo, useGetTodos } from '@quries/todo';
+import TodoItem from '@components/todo/TodoItem';
 import * as Todo from '@components/todo/styles';
 import styled from '@emotion/styled';
 
 const Todos = () => {
+  const { data } = useGetTodos();
   const { mutate: createMutate } = useCreateTodo();
+  const router = useRouter();
 
   const formRef = useRef<HTMLFormElement>(null);
   const [values, setValues] = useState({
@@ -37,7 +41,6 @@ const Todos = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(values);
     const { title, content } = values;
     createMutate({ title, content });
   };
@@ -45,6 +48,14 @@ const Todos = () => {
   return (
     <Wrapper>
       <ItemsWrapper>
+        {data?.map(({ title, content, id }) => (
+          <TodoItem
+            id={id}
+            title={title}
+            content={content}
+            show={router.query.id === id ? true : false}
+          ></TodoItem>
+        ))}
         <Todo.FormWrapper>
           <Todo.Form ref={formRef} onSubmit={onSubmit}>
             <label htmlFor='title'>

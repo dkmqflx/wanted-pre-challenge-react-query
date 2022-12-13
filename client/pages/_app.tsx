@@ -1,4 +1,5 @@
 import '../styles/globals.css';
+import { useState } from 'react';
 import type { AppProps } from 'next/app';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -6,13 +7,17 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import styled from '@emotion/styled';
 
 export default function App({ Component, pageProps }: AppProps) {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-      },
-    },
-  });
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
+        },
+      })
+  );
+
   return (
     <QueryClientProvider client={queryClient}>
       <Wrapper>

@@ -29,9 +29,21 @@ class Todo {
     return data.data;
   }
 
+  async getTodoById(id?: string) {
+    this.setInterCepters();
+    const { data } = await this.http.get(`/todos/${id}`);
+    return data.data;
+  }
+
   async createTodo(title: string, content: string) {
     this.setInterCepters();
     const { data } = await this.http.post('/todos', { title, content });
+    return data.data;
+  }
+
+  async updateTodo(id: string, title: string, content: string) {
+    this.setInterCepters();
+    const { data } = await this.http.put(`/todos/${id}`, { title, content });
     return data.data;
   }
 

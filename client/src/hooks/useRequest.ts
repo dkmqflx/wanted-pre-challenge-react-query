@@ -3,6 +3,7 @@ import { useMutation, useQuery, QueryKey } from '@tanstack/react-query';
 type requestOptionType<TData = unknown, TError = unknown> = {
   onSuccess?: (data: TData) => void;
   onError?: (error: TError) => void;
+  enabled?: boolean;
 };
 
 type mutateOptionType<

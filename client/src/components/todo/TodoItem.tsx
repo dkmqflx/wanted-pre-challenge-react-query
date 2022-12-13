@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
 import { useDeleteTodo } from '@quries/todo';
+import useModal from '@hooks/useModal';
+import Modal from '@components/common/Modal';
 import styled from '@emotion/styled';
 
 type todoItemType = {
@@ -12,6 +14,7 @@ type todoItemType = {
 const TodoItem = ({ id, title, content, show }: todoItemType) => {
   const router = useRouter();
   const { mutate: deleteMutate } = useDeleteTodo();
+  const { isOpenModal, showModal, closeModal } = useModal();
 
   const onClick = () => {
     if (show) {
@@ -34,9 +37,11 @@ const TodoItem = ({ id, title, content, show }: todoItemType) => {
         <Settings>
           <SettingButton onClick={onClick}>상세</SettingButton>
           <SettingButton onClick={handleDelete}>삭제</SettingButton>
+          <SettingButton onClick={showModal}>수정</SettingButton>
         </Settings>
       </ItemWrapper>
       {show && <Content>{content}</Content>}
+      {isOpenModal && <Modal id={id} closeModal={closeModal}></Modal>}
     </Wrapper>
   );
 };

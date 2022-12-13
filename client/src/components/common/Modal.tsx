@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
-import { useCreateTodo } from '@quries/todo';
+import { useCreateTodo, useUpdateTodo, useGetTodoById } from '@quries/todo';
 import styled from '@emotion/styled';
 
 const Modal = ({
   closeModal,
+  id,
 }: {
   closeModal: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  id?: string;
 }) => {
   const [values, setValues] = useState({
     title: '',
     content: '',
   });
+  const { title, content } = values;
+  const { data = { title: '', content: '' } } = useGetTodoById(id);
+  const { mutate: updateMutate } = useUpdateTodo();
   const { mutate: createMutate } = useCreateTodo();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { title, content } = values;
-    createMutate({ title, content });
+    const submitTitle = title ? title : data.title;
+    const submitContent = content ? content : data.content;
+
+    id
+      ? updateMutate({ id, title: submitTitle, content: submitContent })
+      : createMutate({ title: submitTitle, content: submitContent });
     closeModal();
   };
 
@@ -37,7 +46,12 @@ const Modal = ({
         <Form onSubmit={onSubmit}>
           <label htmlFor='title'>
             <div>제목</div>
-            <FormInput onChange={handleChange} type='text' id='title' />
+            <FormInput
+              onChange={handleChange}
+              type='text'
+              id='title'
+              value={title ? title : data?.title}
+            />
           </label>
           <label htmlFor='content'>
             <div>내용</div>
@@ -45,10 +59,11 @@ const Modal = ({
               onChange={handleChange}
               id='content'
               name='content'
+              value={content ? content : data?.content}
             ></FormTextArea>
           </label>
           <ButtonsWrapper>
-            <Button type='submit'>추가하기</Button>
+            <Button type='submit'>확인</Button>
             <Button type='button' onClick={closeModal}>
               닫기
             </Button>

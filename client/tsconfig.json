@@ -22,7 +22,8 @@
       "@constants/*": ["./constants/*"],
       "@hooks/*": ["./hooks/*"],
       "@service/*": ["./service/*"],
-      "@quries/*": ["./quries/*"]
+      "@quries/*": ["./quries/*"],
+      "@utils/*": ["./utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

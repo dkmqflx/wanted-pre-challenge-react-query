@@ -1,17 +1,19 @@
 import { useRouter } from 'next/router';
 import { useDeleteTodo } from '@quries/todo';
+import { todoItemType } from '@type/todo.types';
+import { getDate } from 'utils/todo';
 import useModal from '@hooks/useModal';
 import Modal from '@components/common/Modal';
 import styled from '@emotion/styled';
 
-type todoItemType = {
-  id: string;
-  title: string;
-  content: string;
-  show: boolean;
-};
-
-const TodoItem = ({ id, title, content, show }: todoItemType) => {
+const TodoItem = ({
+  id,
+  title,
+  content,
+  show,
+  createdAt,
+  updatedAt,
+}: todoItemType) => {
   const router = useRouter();
   const { mutate: deleteMutate } = useDeleteTodo();
   const { isOpenModal, showModal, closeModal } = useModal();
@@ -40,7 +42,15 @@ const TodoItem = ({ id, title, content, show }: todoItemType) => {
           <SettingButton onClick={showModal}>수정</SettingButton>
         </Settings>
       </ItemWrapper>
-      {show && <Content>{content}</Content>}
+      {show && (
+        <ContentWrapper>
+          <ContentDateWrapper>
+            <ContentDate>생성일 {getDate(createdAt)}</ContentDate>
+            <ContentDate>수정일 {getDate(updatedAt)}</ContentDate>
+          </ContentDateWrapper>
+          <Content>{content}</Content>
+        </ContentWrapper>
+      )}
       {isOpenModal && <Modal id={id} closeModal={closeModal}></Modal>}
     </Wrapper>
   );
@@ -50,7 +60,7 @@ export default TodoItem;
 
 const Wrapper = styled.div`
   border-bottom: 1px solid #e6e6eacc;
-  cursor: pointer;
+
   padding-bottom: 0.75em;
 `;
 
@@ -76,6 +86,28 @@ const SettingButton = styled.button`
   }
 `;
 
-const Content = styled.div`
+const ContentWrapper = styled.div`
   padding-top: 0.75em;
+`;
+
+const Content = styled.p`
+  font-size: 1.25rem;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-all;
+`;
+
+const ContentDateWrapper = styled.p`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const ContentDate = styled.span`
+  color: #57606a;
+  font-size: 0.75rem;
+  display: inline-block;
+
+  & + & {
+    margin-left: 0.5em;
+  }
 `;

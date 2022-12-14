@@ -15,12 +15,14 @@ const todo = () => {
   return (
     <Wrapper>
       <ItemsWrapper>
-        {data?.map(({ title, content, id }) => (
+        {data?.map(({ title, content, id, createdAt, updatedAt }) => (
           <TodoItem
             key={id}
             id={id}
             title={title}
             content={content}
+            createdAt={createdAt}
+            updatedAt={updatedAt}
             show={router.query.id === id ? true : false}
           ></TodoItem>
         ))}

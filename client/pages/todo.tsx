@@ -34,24 +34,24 @@ const todo = () => {
   );
 };
 
-export default Auth(todo, true);
+export default Auth(todo);
 
 const Wrapper = styled.section`
   border-radius: 4px;
-  height: 600px;
+  height: 37.5rem;
   position: relative;
   border: 2px solid #e6e6eacc;
 `;
 
 const ItemsWrapper = styled.div`
-  height: 540px;
-  padding: 12px;
+  height: 33.75rem;
+  padding: 0.75em;
   overflow: scroll;
   position: relative;
 `;
 
 const AddButtonWrapper = styled.div`
-  height: 60px;
+  height: 3.75rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -60,15 +60,13 @@ const AddButtonWrapper = styled.div`
 `;
 
 const AddButton = styled.button`
-  right: 30px;
-  bottom: 30px;
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
   background-color: #0095ed;
   cursor: pointer;
   color: #fff;
   border: 2px solid #0095ed;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: bold;
 `;

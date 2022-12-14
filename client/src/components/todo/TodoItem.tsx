@@ -51,31 +51,31 @@ export default TodoItem;
 const Wrapper = styled.div`
   border-bottom: 1px solid #e6e6eacc;
   cursor: pointer;
-  padding-bottom: 12px;
+  padding-bottom: 0.75em;
 `;
 
 const ItemWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding-top: 12px;
+  padding-top: 0.75em;
 `;
 
 const Settings = styled.div``;
 
 const SettingButton = styled.button`
-  font-size: 12px;
+  font-size: 0.75rem;
   cursor: pointer;
   background-color: transparent;
   border: 1px solid #ddd;
   border-radius: 4px;
-  padding-top: 2px;
-  padding-bottom: 2px;
+  padding-top: 0.125em;
+  padding-bottom: 0.125em;
 
   & + & {
-    margin-left: 4px;
+    margin-left: 0.25em;
   }
 `;
 
 const Content = styled.div`
-  padding-top: 12px;
+  padding-top: 0.75em;
 `;

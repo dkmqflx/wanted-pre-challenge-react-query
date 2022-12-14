@@ -1,4 +1,10 @@
-class TokenService {
+export interface TokenServiceImp {
+  getToken(): string | null;
+  setToken(token: string): void;
+  deleteToken(): void;
+}
+
+class TokenService implements TokenServiceImp {
   getToken() {
     return localStorage.getItem('token-todo');
   }

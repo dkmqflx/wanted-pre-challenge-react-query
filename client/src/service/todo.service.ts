@@ -1,19 +1,19 @@
 import axios from 'axios';
-import { useRouter } from 'next/router';
 import TokenService from './token.service';
+import { TokenServiceImp } from './token.service';
 import { BASE_URL } from '@constants/http';
 
-class Todo {
+class TodoService {
   private http;
 
-  constructor() {
+  constructor(private tokenService: TokenServiceImp) {
     this.http = axios.create({
       baseURL: BASE_URL,
     });
   }
 
   setInterCepters() {
-    const token = TokenService.getToken();
+    const token = this.tokenService.getToken();
 
     this.http.interceptors.request.use((req) => {
       if (req.headers) {
@@ -28,7 +28,7 @@ class Todo {
       },
       (_error) => {
         if (window.confirm('에러가 발생했습니다. 다시 로그인해주세요')) {
-          TokenService.deleteToken();
+          this.tokenService.deleteToken();
           window.location.reload();
         }
       }
@@ -67,4 +67,4 @@ class Todo {
   }
 }
 
-export default new Todo();
+export default new TodoService(TokenService);

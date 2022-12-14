@@ -84,4 +84,4 @@ const signup = () => {
   );
 };
 
-export default Auth(signup);
+export default signup;

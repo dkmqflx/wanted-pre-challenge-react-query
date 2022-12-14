@@ -1,12 +1,13 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useGetTodos } from '@quries/todo';
+import Auth from '@components/Auth';
 import useModal from '@hooks/useModal';
 import Modal from '@components/common/Modal';
 import TodoItem from '@components/todo/TodoItem';
 import styled from '@emotion/styled';
 
-const Todos = () => {
+const todo = () => {
   const { data } = useGetTodos();
   const router = useRouter();
   const { isOpenModal, showModal, closeModal } = useModal();
@@ -33,7 +34,7 @@ const Todos = () => {
   );
 };
 
-export default Todos;
+export default Auth(todo, true);
 
 const Wrapper = styled.section`
   border-radius: 4px;

@@ -28,7 +28,7 @@ const login = () => {
           const { message, token } = data;
           TokenService.setToken(token);
           alert(message);
-          router.push('/');
+          router.push('/todo');
         },
       }
     );
@@ -70,4 +70,4 @@ const login = () => {
   );
 };
 
-export default Auth(login);
+export default login;

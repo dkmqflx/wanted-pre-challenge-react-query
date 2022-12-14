@@ -6,6 +6,10 @@ class TokenService {
   setToken(token: string) {
     localStorage.setItem('token-todo', token);
   }
+
+  deleteToken() {
+    localStorage.removeItem('token-todo');
+  }
 }
 
 export default new TokenService();

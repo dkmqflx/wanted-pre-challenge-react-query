@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import TokenService from './token.service';
 import { BASE_URL } from '@constants/http';
 
@@ -20,6 +21,18 @@ class Todo {
       }
       return req;
     });
+
+    this.http.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      (_error) => {
+        if (window.confirm('에러가 발생했습니다. 다시 로그인해주세요')) {
+          TokenService.deleteToken();
+          window.location.reload();
+        }
+      }
+    );
   }
 
   async getTodos() {

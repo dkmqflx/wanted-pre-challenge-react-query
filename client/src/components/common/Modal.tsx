@@ -63,10 +63,10 @@ const Modal = ({
             ></FormTextArea>
           </label>
           <ButtonsWrapper>
-            <Button type='submit'>확인</Button>
             <Button type='button' onClick={closeModal}>
               닫기
             </Button>
+            <Button type='submit'>확인</Button>
           </ButtonsWrapper>
         </Form>
       </ModalContent>
@@ -87,15 +87,15 @@ const ModalWrapper = styled.div`
 `;
 
 const ModalContent = styled.div`
-  width: 400px;
-  height: 200px;
+  width: 25rem;
+  height: 12.5rem;
   background-color: #fff;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 100;
-  padding: 12px;
+  padding: 0.75em;
   background-color: #f6f7fa;
 `;
 
@@ -107,7 +107,7 @@ const Form = styled.form`
   height: 100%;
   border-bottom: none;
 
-  font-size: 12px;
+  font-size: 0.75rem;
   overflow: hidden;
 
   & label + label {
@@ -116,36 +116,36 @@ const Form = styled.form`
 `;
 
 const FormInput = styled.input`
-  margin-top: 4px;
+  margin-top: 0.25em;
   outline: none;
   border: 1px solid #ccc;
   width: 100%;
-  height: 32px;
+  height: 2rem;
 `;
 
 const FormTextArea = styled.textarea`
-  margin-top: 4px;
+  margin-top: 0.25em;
   outline: none;
   border: 1px solid #ccc;
   resize: none;
   width: 100%;
-  height: 50px;
+  height: 3.125rem;
 `;
 
 const Button = styled.button`
   background-color: transparent;
   border: 1px solid #0095ed;
-  width: 60px;
-  padding: 8px 0;
+  width: 3.75rem;
+  padding: 0.5em 0;
   border-radius: 4px;
-  margin-top: 8px;
+  margin-top: 0.5em;
   right: 0;
   position: relative;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 0.75rem;
 
   & + & {
-    margin-left: 8px;
+    margin-left: 0.5em;
   }
 `;
 

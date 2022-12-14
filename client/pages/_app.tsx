@@ -29,6 +29,6 @@ export default function App({ Component, pageProps }: AppProps) {
 }
 
 const Wrapper = styled.div`
-  margin: 100px auto;
-  max-width: 500px;
+  margin: 6.25em auto;
+  max-width: 31.25rem;
 `;

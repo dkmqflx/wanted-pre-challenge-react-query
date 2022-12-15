@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSignUp } from 'quries/auth';
 import { signupInputType } from '@type/auth.types';
+import Auth from '@components/Auth';
 import Input from '@components/common/Input';
 import Button from '@components/common/Button';
 import { emailRegex } from '@constants/auth';
@@ -83,4 +84,4 @@ const signup = () => {
   );
 };
 
-export default signup;
+export default Auth(signup);

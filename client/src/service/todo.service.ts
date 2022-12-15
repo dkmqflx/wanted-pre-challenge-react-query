@@ -26,10 +26,9 @@ class TodoService {
       (response) => {
         return response;
       },
-      (_error) => {
+      () => {
         if (window.confirm('에러가 발생했습니다. 다시 로그인해주세요')) {
           this.tokenService.deleteToken();
-          window.location.reload();
         }
       }
     );

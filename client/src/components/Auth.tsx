@@ -4,20 +4,18 @@ import TokenService from '@service/token.service';
 
 const Auth = (WrappedComponent: FunctionComponent) => {
   return ({ ...props }) => {
-    const [isToken, setIsToken] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
       const token = TokenService.getToken();
 
       if (!token) {
-        router.replace('/auth/login');
+        router.push('/auth/login');
       } else {
-        setIsToken(true);
+        router.push('/todo');
       }
     }, []);
-
-    return isToken ? <WrappedComponent {...props} /> : null;
+    return <WrappedComponent {...props} />;
   };
 };
 

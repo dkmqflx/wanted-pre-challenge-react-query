@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useLogin } from '@quries/auth';
 import TokenService from '@service/token.service';
 import { loginInputType } from '@type/auth.types';
+import Auth from '@components/Auth';
 import Input from '@components/common/Input';
 import Button from '@components/common/Button';
 import { emailRegex } from '@constants/auth';
@@ -69,4 +70,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Auth(login);

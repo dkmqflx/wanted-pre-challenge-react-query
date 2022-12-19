@@ -5,6 +5,7 @@ import TokenService from '@service/token.service';
 const Auth = (WrappedComponent: FunctionComponent) => {
   return ({ ...props }) => {
     const router = useRouter();
+    const [token, setToken] = useState<string | null>(null);
 
     useEffect(() => {
       const token = TokenService.getToken();
@@ -12,10 +13,11 @@ const Auth = (WrappedComponent: FunctionComponent) => {
       if (!token) {
         router.push('/auth/login');
       } else {
-        router.push('/todo');
+        setToken(token);
+        router.push('/');
       }
     }, []);
-    return <WrappedComponent {...props} />;
+    return token ? <WrappedComponent {...props} /> : null;
   };
 };
 

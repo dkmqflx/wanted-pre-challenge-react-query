@@ -1,15 +1,16 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import useAuth from '@hooks/useAuth';
 import { useLogin } from '@quries/auth';
 import TokenService from '@service/token.service';
 import { loginInputType } from '@type/auth.types';
-import Auth from '@components/Auth';
 import Input from '@components/common/Input';
 import Button from '@components/common/Button';
 import { emailRegex } from '@constants/auth';
 
 const login = () => {
+  const { isLoading } = useAuth();
   const {
     register,
     handleSubmit,
@@ -28,11 +29,13 @@ const login = () => {
           const { message, token } = data;
           TokenService.setToken(token);
           alert(message);
-          router.push('/todo');
+          router.push('/');
         },
       }
     );
   };
+
+  if (isLoading) return null;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -70,4 +73,4 @@ const login = () => {
   );
 };
 
-export default Auth(login);
+export default login;

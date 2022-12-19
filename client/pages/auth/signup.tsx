@@ -3,12 +3,13 @@ import { useRouter } from 'next/router';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSignUp } from 'quries/auth';
 import { signupInputType } from '@type/auth.types';
-import Auth from '@components/Auth';
+import useAuth from '@hooks/useAuth';
 import Input from '@components/common/Input';
 import Button from '@components/common/Button';
 import { emailRegex } from '@constants/auth';
 
 const signup = () => {
+  const { isLoading } = useAuth();
   const {
     register,
     handleSubmit,
@@ -35,6 +36,8 @@ const signup = () => {
       }
     );
   };
+
+  if (isLoading) return null;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -84,4 +87,4 @@ const signup = () => {
   );
 };
 
-export default Auth(signup);
+export default signup;

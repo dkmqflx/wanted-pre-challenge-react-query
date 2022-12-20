@@ -20,9 +20,9 @@ const TodoItem = ({
 
   const onClick = () => {
     if (show) {
-      router.push(`/todo`);
+      router.push(`/`);
     } else {
-      router.push(`/todo?id=${id}`);
+      router.push(`/?id=${id}`);
     }
   };
 

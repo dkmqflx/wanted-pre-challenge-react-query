@@ -1,28 +1,35 @@
 ## 구현 화면
 
-- 로그인
+### 로그인
 
-  - 이메일과 비밀번호가 모두 입력되어 있고, 조건을 만족해야 제출 버튼이 활성화 됩니다.
+이메일과 비밀번호가 모두 입력되어 있고, 조건을 만족해야 제출 버튼이 활성화 됩니다.
 
-  https://user-images.githubusercontent.com/42763164/208599972-44b4ccd4-cbda-47ef-8c28-85517976b14f.mov
+https://user-images.githubusercontent.com/42763164/208599972-44b4ccd4-cbda-47ef-8c28-85517976b14f.mov
 
-- 회원가입
+<br/>
 
-  - 이메일과 비밀번호가 모두 입력되어 있고, 조건을 만족해야 제출 버튼이 활성화 됩니다.
+### 회원가입
 
-  https://user-images.githubusercontent.com/42763164/208599642-ee2cc7ae-c6ef-4992-b506-ead5c7656e86.mov
+이메일과 비밀번호가 모두 입력되어 있고, 조건을 만족해야 제출 버튼이 활성화 됩니다.
 
-- 추가
+https://user-images.githubusercontent.com/42763164/208599642-ee2cc7ae-c6ef-4992-b506-ead5c7656e86.mov
 
-  - 모달창에서 새로운 데이터를 입력할 수 있습니다.
+<br/>
 
-  https://user-images.githubusercontent.com/42763164/208600051-8974ab29-5a4e-4043-8402-8926faef248d.mov
+### 아이템 추가
 
-- 수정
+모달창에서 새로운 아이템을 입력할 수 있습니다.
 
-  - 모달창에서 기존의 데이터를 수정할 수 있습니다.
+https://user-images.githubusercontent.com/42763164/208600051-8974ab29-5a4e-4043-8402-8926faef248d.mov
 
-  https://user-images.githubusercontent.com/42763164/208600014-4348a825-a575-4b81-8d48-599391ac3524.mov
+<br/>
+
+
+### 아이템 수정
+
+모달창에서 기존의 아이템을 수정할 수 있습니다.
+
+https://user-images.githubusercontent.com/42763164/208600014-4348a825-a575-4b81-8d48-599391ac3524.mov
 
 <br/>
 
@@ -34,6 +41,7 @@
   $ yarn install
 
   $ yarn start
+
 
   # client
 
@@ -117,14 +125,14 @@
 
 ├── pages # 주소에 해당하는 페이지
 ├── src
-	  ├── components
-			  ├──  common # 공통으로 사용되는 컴포넌트 정의
-		├── constants
-		├── hooks # custom hooks
-		├── quries # query를 도메인별로 각각 다른 파일로 관리
-		├── service # 기능에 따른 서비스 모듈을 모아둔 폴더
-		├── type # 공통으로 사용되는 type 정의
-		└── utils
+    ├── components
+        ├──  common # 공통으로 사용되는 컴포넌트 정의
+    ├── constants
+    ├── hooks # custom hooks
+    ├── quries # query를 도메인별로 각각 다른 파일로 관리
+    ├── service # 기능에 따른 서비스 모듈을 모아둔 폴더
+    ├── type # 공통으로 사용되는 type 정의
+    └── utils
 ```
 
 <br/>

@@ -1,11 +1,59 @@
-<details>
-  <summary style='font-size:20px'>과제보기</summary>
+## 구현 화면
 
-  <div markdown="1">
+- 로그인
 
-  <br/>
+  - 이메일과 비밀번호가 모두 입력되어 있고, 조건을 만족해야 제출 버튼이 활성화 됩니다.
 
-## Assignment 1 - Login / SignUp
+  https://user-images.githubusercontent.com/42763164/208599972-44b4ccd4-cbda-47ef-8c28-85517976b14f.mov
+
+- 회원가입
+
+  - 이메일과 비밀번호가 모두 입력되어 있고, 조건을 만족해야 제출 버튼이 활성화 됩니다.
+
+  https://user-images.githubusercontent.com/42763164/208599642-ee2cc7ae-c6ef-4992-b506-ead5c7656e86.mov
+
+- 추가
+
+  - 모달창에서 새로운 데이터를 입력할 수 있습니다.
+
+  https://user-images.githubusercontent.com/42763164/208600051-8974ab29-5a4e-4043-8402-8926faef248d.mov
+
+- 수정
+
+  - 모달창에서 기존의 데이터를 수정할 수 있습니다.
+
+  https://user-images.githubusercontent.com/42763164/208600014-4348a825-a575-4b81-8d48-599391ac3524.mov
+
+<br/>
+
+## 실행 방법
+
+```
+  # server
+
+  $ yarn install
+
+  $ yarn start
+
+  # client
+
+  $ yarn install
+
+  $ yarn dev
+
+```
+
+- 로컬 서버를 실행했을 때 생성되는 `db/db.json`이 DB 역할을 하게 됩니다. 해당 파일을 삭제하면 DB는 초기화 됩니다.
+
+- 로그인 / 회원 가입 기능은 유저를 DB에 추가하고 JWT 토큰을 응답으로 돌려줄 뿐, 실제 유저별로 Todo 목록을 관계 지어 관리하지는 않습니다. (모든 유저가 하나의 Todo를 가짐)
+
+- node v16.16.0 버전에서 진행하였습니다.
+
+<br/>
+
+## 과제 구현 사항 목록
+
+### Assignment 1 - Login / SignUp
 
 - /auth 경로에 로그인 / 회원가입 기능을 개발합니다
 
@@ -15,7 +63,7 @@
 
 - 이메일과 비밀번호의 유효성을 확인합니다
 
-  - 이메일 조건 : 최소 `@`, `.` 포함
+  - 이메일 조건 : 최소 `@`, `.` 포함
 
   - 비밀번호 조건 : 8자 이상 입력
 
@@ -29,9 +77,9 @@
 
   - 어떤 경우든 토큰이 유효하지 않다면 사용자에게 알리고 로그인 페이지로 리다이렉트 시켜주세요
 
----
+<br/>
 
-## Assignment 2 - Todo List
+### Assignment 2 - Todo List
 
 - Todo List API를 호출하여 Todo List CRUD 기능을 구현해주세요
 
@@ -55,243 +103,278 @@
 
   - 수정되는 Todo의 내용이 목록에서도 실시간으로 반영되어야 합니다
 
----
+<br/>
 
-## 과제 참고 사항
+## 기술 스택
 
-1. 로컬 서버를 실행했을 때 생성되는 `db/db.json`이 DB 역할을 하게 됩니다. 해당 파일을 삭제하면 DB는 초기화 됩니다.
+- Next.js, React Query, React Hook Form
 
-2. 로그인 / 회원 가입 기능은 유저를 DB에 추가하고 JWT 토큰을 응답으로 돌려줄 뿐, 실제 유저별로 Todo 목록을 관계 지어 관리하지는 않습니다. (모든 유저가 하나의 Todo를 가짐)
+<br/>
 
-3. 로그아웃은 클라이언트 단에서 localStorage에 저장된 token을 삭제하는 방식으로 간단히 구현해주세요.
-
-### 2-1) API 실행
+## 폴더 구조
 
 ```bash
-> yarn
 
-> yarn start # http://localhost:8080
+├── pages # 주소에 해당하는 페이지
+├── src
+	  ├── components
+			  ├──  common # 공통으로 사용되는 컴포넌트 정의
+		├── constants
+		├── hooks # custom hooks
+		├── quries # query를 도메인별로 각각 다른 파일로 관리
+		├── service # 기능에 따른 서비스 모듈을 모아둔 폴더
+		├── type # 공통으로 사용되는 type 정의
+		└── utils
+```
+
+<br/>
+
+## 과제 진행시 고민한 부분
+
+### Button 컴포넌트의 재사용성
+
+- Button 컴포넌트 같은 경우 로그인, 회원가입 페이지에서 아래처럼 총 두가지 경우 방식으로 사용되었기 때문에 각각의 케이스에 대응할 수 있도록 컴포넌트를 작성해주었습니다.
+
+  - form의 submit
+
+  - a tag를 이용한 페이지 라우팅 (next/link 사용)
+
+- 입력 조건을 만족했을 때 버튼의 색깔이 변경되었기 때문에 이 부분도 함께 처리해주었습니다.
+
+- 우선 페이지 라우팅의 경우에는 next.js의 `Link` 태그로 Button 컴포넌트를 감싸준다음 `passHref`와 `href`값을 전달해주었는데 href의 값의 전달 여부에 따라서 `<a>` 태그의 사용 유무를 결정했습니다.
+
+- 그리고 자식 컴포넌트가 함수형 컴포넌트인 경우 `ref`가 컴포넌트로 전달되어 `forwardRef`로 컴포넌트를 감싸주어야 했기 때문에 `forwardRef`로 컴포넌트를 감싸준 다음 `ref`에 사용되는 타입과 `Props`의 타입을 지정해주었습니다.
+
+- 마지막으로 active 값은 입력 조건을 만족했을 때 true가 전달되어 해당 버튼의 색깔이 변경되도록 처리해주었습니다.
+
+```jsx
+// src/components/common/Button.tsx
+
+...
+
+type buttonType = React.HTMLProps<HTMLAnchorElement> & {
+  href?: 'string';
+  children: string;
+  type?: 'button' | 'submit';
+  active?: boolean;
+};
+
+const Button = forwardRef<HTMLAnchorElement, buttonType>(
+  ({ href, children, type, active = true }, ref) => {
+    return href ? (
+      <ButtonWrapper>
+        <a href={href} ref={ref}>
+          <ButtonStyled active={active} type={type}>
+            {children}
+          </ButtonStyled>
+        </a>
+      </ButtonWrapper>
+    ) : (
+      <ButtonWrapper>
+        <ButtonStyled active={active} type={type}>
+          {children}
+        </ButtonStyled>
+      </ButtonWrapper>
+    );
+  }
+);
+
+export default Button;
+
+...
 ```
 
 ---
 
-## 2-2) API 스펙
+### 서비스 모듈 분리
 
-### Todo
+- 구현에 필요한 기능은 크게 인증과 Todo로 나눌 수 있었기 때문에 각각의 기능에 따라 AuthService, TodoService라는 클래스를 만든 다음 클래스 내부에 필요한 기능을 정의했습니다.
 
-- getTodos
+- 이 때 토큰을 설정하고 가져오는 기능을 담당하는 TokenService라는 클래스가 있었는데 토큰과 관련된 기능이 TodoService에도 사용되었습니다.
 
-- getTodoById
+- 두 클래스 간의 관계가 부모 자식 관계를 가지지 않기 때문에 Dependency Injection으로 TokenService 클래스의 인스턴스를 전달해서 TodoService에서 토큰과 관련된 기능을 사용할 수 있도록 처리했습니다.
 
-- createTodo
+- 그리고 Dependency Injection으로 전달받는 TokenService의 타입을 TokenService에 필요한 기능을 정의한 인터페이스로 지정해주었습니다.
+- 이를 통해서 두 클래스가 너무 coupling되지 않고 인터페이스로 상호작용을 할 수 있도록 처리했습니다.
 
-- updateTodo
+```jsx
+// service/auth.service.ts
 
-- deleteTodo
+import axios from 'axios';
+import { BASE_URL } from '@constants/http';
+import { loginInputType } from '@type/auth.types';
 
-### Auth
+class AuthService {
+  private request;
 
-- login
+  constructor() {
+    this.request = axios.create({
+      baseURL: BASE_URL,
+    });
+  }
 
-- signUp
+  async login({ email, password }: loginInputType) {
+    const { data } = await this.request.post('/users/login', {
+      email,
+      password,
+    });
+
+    return data;
+  }
+
+  async signup({ email, password }: loginInputType) {
+    const { data } = await this.request.post('/users/create', {
+      email,
+      password,
+    });
+
+    return data;
+  }
+}
+
+export default new AuthService();
+```
 
 <br/>
 
-### getTodos
+```jsx
+// service/todo.service.ts
 
-- GET `/todos`
+import axios from 'axios';
+import TokenService from './token.service';
+import { TokenServiceImp } from './token.service';
+import { BASE_URL } from '@constants/http';
 
-- Headers
+class TodoService {
+  private http;
 
-  - Authorization: login token
+  constructor(private tokenService: TokenServiceImp) {
+    this.http = axios.create({
+      baseURL: BASE_URL,
+    });
+  }
 
-- 응답 예시
+  setInterCepters() {
+    const token = this.tokenService.getToken();
 
-  ```json
-  {
-    "data": [
-      {
-        "title": "hi",
-        "content": "hello",
-        "id": "z3FGrcRL55qDCFnP4KRtn",
-        "createdAt": "2022-07-24T14:15:55.537Z",
-        "updatedAt": "2022-07-24T14:15:55.537Z"
-      },
-      {
-        "title": "hi",
-        "content": "hello",
-        "id": "z3FGrcRL55qDCFnP4KRtn",
-        "createdAt": "2022-07-24T14:15:55.537Z",
-        "updatedAt": "2022-07-24T14:15:55.537Z"
+    this.http.interceptors.request.use((req) => {
+      if (req.headers) {
+        req.headers.authorization = token;
       }
-    ]
+      return req;
+    });
+
+    this.http.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      () => {
+        if (window.confirm('에러가 발생했습니다. 다시 로그인해주세요')) {
+          this.tokenService.deleteToken();
+        }
+      }
+    );
   }
-  ```
+
+  async getTodos() {
+    this.setInterCepters();
+    const { data } = await this.http.get('/todos');
+
+    return data.data;
+  }
+
+  async getTodoById(id?: string) {
+    this.setInterCepters();
+    const { data } = await this.http.get(`/todos/${id}`);
+    return data.data;
+  }
+
+  async createTodo(title: string, content: string) {
+    this.setInterCepters();
+    const { data } = await this.http.post('/todos', { title, content });
+    return data.data;
+  }
+
+  async updateTodo(id: string, title: string, content: string) {
+    this.setInterCepters();
+    const { data } = await this.http.put(`/todos/${id}`, { title, content });
+    return data.data;
+  }
+
+  async deleteTodo(id: string) {
+    this.setInterCepters();
+    const { data } = await this.http.delete(`/todos/${id}`);
+    return data.data;
+  }
+}
+
+export default new TodoService(TokenService);
+```
 
 <br/>
 
-### getTodoById
+```jsx
+// service/token.service.ts
 
-- GET `/todos/:id`
+export interface TokenServiceImp {
+  getToken(): string | null;
+  setToken(token: string): void;
+  deleteToken(): void;
+}
 
-- Headers
-
-  - Authorization: login token
-
-- 응답 예시
-
-  ```json
-  {
-    "data": {
-      "title": "hi",
-      "content": "hello",
-      "id": "z3FGrcRL55qDCFnP4KRtn",
-      "createdAt": "2022-07-24T14:15:55.537Z",
-      "updatedAt": "2022-07-24T14:15:55.537Z"
-    }
+class TokenService implements TokenServiceImp {
+  getToken() {
+    return localStorage.getItem('token-todo');
   }
-  ```
 
-<br/>
-
-### createTodo
-
-- POST `/todos`
-
-- Parameter
-
-  - title: string
-
-  - content: string
-
-- Headers
-
-  - Authorization: login token
-
-- 응답 예시
-
-  ```json
-  {
-    "data": {
-      "title": "hi",
-      "content": "hello",
-      "id": "z3FGrcRL55qDCFnP4KRtn",
-      "createdAt": "2022-07-24T14:15:55.537Z",
-      "updatedAt": "2022-07-24T14:15:55.537Z"
-    }
+  setToken(token: string) {
+    localStorage.setItem('token-todo', token);
   }
-  ```
 
-<br/>
-
-### updateTodo
-
-- PUT `/todos/:id`
-
-- Parameter
-
-  - title: string
-
-  - content: string
-
-- Headers
-
-  - Authorization: login token
-
-- 응답 예시
-
-  ```json
-  {
-    "data": {
-      "title": "제목 변경",
-      "content": "내용 변경",
-      "id": "RMfi3XyOKoI5zd0A_bsPL",
-      "createdAt": "2022-07-24T14:25:48.627Z",
-      "updatedAt": "2022-07-24T14:25:48.627Z"
-    }
+  deleteToken() {
+    localStorage.removeItem('token-todo');
   }
-  ```
+}
 
-<br/>
-
-### deleteTodo
-
-- DELETE `/todos/:id`
-
-- Headers
-
-  - Authorization: login token
-
-- 응답 예시
-
-  ```json
-  {
-    "data": null
-  }
-  ```
-
-<br/>
-
-### login
-
-- POST `/users/login`
-
-- Parameter
-
-  - email: string
-
-  - password: string
-
-- 응답 예시
-
-  ```json
-  {
-    "message": "성공적으로 로그인 했습니다",
-    "token": "eyJhbGciOiJIUzI1NiJ9.YXNkZkBhc2RmYXNkZi5jb20.h-oLZnV0pCeNKa_AM3ilQzerD2Uj7bKUn1xDft5DzOk"
-  }
-  ```
-
-<br/>
-
-### signUp
-
-- POST `/users/create`
-
-- Parameter
-
-  - email: string
-
-  - password: string
-
-- 응답 예시
-
-  ```json
-  {
-    "message": "계정이 성공적으로 생성되었습니다",
-    "token": "eyJhbGciOiJIUzI1NiJ9.YXNkZkBhc2RmYXNkZi5jb20.h-oLZnV0pCeNKa_AM3ilQzerD2Uj7bKUn1xDft5DzOk"
-  }
-  ```
-
-    </div>
-  </details>
+export default new TokenService();
+```
 
 ---
 
-### 실행 방법
+### React Query에 의존성 역전 원칙 적용
 
-```shell
-# server
+- 데이터를 처리하기 위해서 React Query에 정의된 useQuery나 useMutation 같은 hook을 그대로 사용하게 되면 React Query에 의존성을 갖게 됩니다.
 
-$ yarn install
+- 따라서 외부 변경으로 인한 영향을 최소화하기 위해 useRequest라는 hook을 정의하고 필요한 인터페이스를 새롭게 정의해주었습니다.
 
-$ yarn start
+```jsx
+// hooks/useRequest.ts
 
+import { useMutation, useQuery, QueryKey } from '@tanstack/react-query';
 
-# client
+type requestOptionType<TData, TError> = {
+  onSuccess?: (data: TData) => void,
+  onError?: (error: TError) => void,
+  enabled?: boolean,
+};
 
-$ yarn install
+type mutateOptionType<TData, TError, TVariables> = {
+  onSuccess?: (data: TData, variables?: TVariables) => void,
+  onError?: (error: TError) => void,
+};
 
-$ yarn dev
+export const useRequest = <TError, TData>(
+  key: QueryKey,
+  request: () => TData | Promise<TData>,
+  option?: requestOptionType<TData, TError>
+) => {
+  return useQuery(key, request, { ...option });
+};
 
-
+export const useMutate = <TData, TError, TVariables>(
+  mutationFn: (data: TVariables) => Promise<TData>,
+  option?: mutateOptionType<TData, TError, TVariables>
+) => {
+  return useMutation(mutationFn, { ...option });
+};
 ```

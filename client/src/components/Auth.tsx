@@ -14,7 +14,7 @@ const Auth = (WrappedComponent: FunctionComponent) => {
         router.push('/auth/login');
       } else {
         setToken(token);
-        router.push('/');
+        router.push(`${router.asPath}`);
       }
     }, []);
     return token ? <WrappedComponent {...props} /> : null;
